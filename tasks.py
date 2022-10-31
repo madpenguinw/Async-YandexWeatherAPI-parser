@@ -45,6 +45,7 @@ class DataCalculationTask(Process):
         self.queue = queue
 
     def get_average_value(values: list) -> int:
+        'Получение среднего значения элемента списка.'
         try:
             true_list = []
             for value in values:
@@ -77,6 +78,7 @@ class DataCalculationTask(Process):
             'date_data': [],
             'average_temp': float(),
             'average_not_rainy_hours': float(),
+            'rating': False,
         }
         for day in yw_data['forecasts']:
             date = day['date']
@@ -129,15 +131,65 @@ class DataAggregationTask(Process):
         super().__init__()
         self.queue = queue
 
+    def get_rating(data: list, value: str, reverse: bool = False) -> list:
+        'Увеличения значения рейтинга на основании положения словаря в списке.'
+        try:
+            data.sort(
+                key=lambda dictionary: dictionary[value],
+                reverse=reverse
+            )
+            i = 1
+            if value != 'rating':
+                for sorted_dictionary in data:
+                    if sorted_dictionary['rating']:
+                        sorted_dictionary['rating'] += 1
+                    else:
+                        sorted_dictionary['rating'] = i
+                        i += 1
+        except Exception as error:
+            logger.error(error)
+        return data
+
+    def get_recommendation(data: list) -> str:
+        'Сортировка списка словарей по ключу.'
+        try:
+            city_1 = data[0]['city']
+            rating_1 = data[0]['rating']
+            if data[1]['rating'] == rating_1:
+                city_2 = data[1]['city']
+                msg = 'Наиболее благоприятные города для поездки ' \
+                    f'{city_1} и {city_2}'
+            else:
+                msg = f'Наиболее благоприятный город для поездки - {city_1}'
+            print(msg)
+            pass
+        except Exception as error:
+            logger.error(error)
+            pass
+
     def run(self):
         data: list = list()
         while True:
             if self.queue.empty():
+                data = DataAggregationTask.get_rating(
+                    data,
+                    'average_temp',
+                    reverse=True
+                )
+                data = DataAggregationTask.get_rating(
+                    data,
+                    'average_not_rainy_hours',
+                    reverse=True
+                )
+                data = DataAggregationTask.get_rating(
+                    data,
+                    'rating'
+                )
                 logger.info('Объединение вычисленных данных выполненно')
-                DataAnalyzingTask.create_json(data)
+                DataAnalyzingTask.result(data)
+                DataAggregationTask.get_recommendation(data)
                 return data
             item = self.queue.get()
-            #  Продумать сравнение и рейтинговую систему
             data.append(item)
 
 
@@ -145,9 +197,22 @@ class DataAnalyzingTask:
     '''
     Финальный анализ и получение результата.
     '''
-    def create_json(data):
-        json_response = json.dumps(data, indent=4, ensure_ascii=False,)
-        print(json_response)
+    def create_json(data: list):
+        'Создание из списка объекта json.'
+        dict_data = {
+            'forecasting': data
+        }
+        json_data = json.dumps(dict_data, indent=4, ensure_ascii=False,)
+        return json_data
+
+    def save_json(json_data):
+        'Cохранение объекта json в файл data.json.'
         with open('data.json', 'w', encoding='utf-8') as outfile:
-            outfile.write(json_response)
+            outfile.write(json_data)
             outfile.write('\n')
+        logger.info('Результат получен и сохранен в файле data.json')
+
+    def result(data):
+        'Конечный результат.'
+        json_data = DataAnalyzingTask.create_json(data)
+        DataAnalyzingTask.save_json(json_data)
