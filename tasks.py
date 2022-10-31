@@ -132,7 +132,7 @@ class DataAggregationTask(Process):
         self.queue = queue
 
     def get_rating(data: list, value: str, reverse: bool = False) -> list:
-        'Увеличения значения рейтинга на основании положения словаря в списке.'
+        'Увеличение значения рейтинга на основании положения словаря в списке.'
         try:
             data.sort(
                 key=lambda dictionary: dictionary[value],
@@ -198,7 +198,7 @@ class DataAnalyzingTask:
     Финальный анализ и получение результата.
     '''
     def create_json(data: list):
-        'Создание из списка объекта json.'
+        'Создание из списка словарей объекта json.'
         dict_data = {
             'forecasting': data
         }
