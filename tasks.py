@@ -25,21 +25,21 @@ logger = logging.getLogger(__name__)
 
 
 class DataFetchingTask:
-    '''
+    """
     Получение данных через АПИ Яндекс.Погоды.
-    '''
+    """
     def get_yw_data(self, city: str) -> dict:
-        logger.info(f'Начато получение данных для города {city}')
+        logger.info('Getting data for city: %(city)s', {'city': city})
         yw_api = YandexWeatherAPI()
         yw_data: dict = yw_api.get_forecasting(city)
-        logger.info(f'Закончено получение данных для города {city}')
+        logger.info('Finished getting data for city: %(city)s', {'city': city})
         return yw_data
 
 
 class DataCalculationTask(Process):
-    '''
+    """
     Вычисление данных о погоде течение дня с 9 до 19 часов.
-    '''
+    """
     def __init__(self, queue):
         super().__init__()
         self.queue = queue
@@ -63,9 +63,9 @@ class DataCalculationTask(Process):
         return round(average, 2)
 
     def get_data_for_10_hours(city: str) -> dict:
-        '''
+        """
         Парсинг данных о погоде с 9 до 19 часов.
-        '''
+        """
         yw_object = DataFetchingTask()
         yw_data: dict = yw_object.get_yw_data(city)
         average_temp: list = list()
@@ -124,9 +124,9 @@ class DataCalculationTask(Process):
 
 
 class DataAggregationTask(Process):
-    '''
+    """
     Объединение вычисленных данных.
-    '''
+    """
     def __init__(self, queue):
         super().__init__()
         self.queue = queue
@@ -185,7 +185,7 @@ class DataAggregationTask(Process):
                     data,
                     'rating'
                 )
-                logger.info('Объединение вычисленных данных выполненно')
+                logger.info('Data aggregation is completed')
                 DataAnalyzingTask.result(data)
                 DataAggregationTask.get_recommendation(data)
                 return data
@@ -194,9 +194,9 @@ class DataAggregationTask(Process):
 
 
 class DataAnalyzingTask:
-    '''
+    """
     Финальный анализ и получение результата.
-    '''
+    """
     def create_json(data: list):
         'Создание из списка словарей объекта json.'
         dict_data = {
@@ -210,7 +210,7 @@ class DataAnalyzingTask:
         with open('data.json', 'w', encoding='utf-8') as outfile:
             outfile.write(json_data)
             outfile.write('\n')
-        logger.info('Результат получен и сохранен в файле data.json')
+        logger.info('Result saved in file "data.json"')
 
     def result(data):
         'Конечный результат.'
