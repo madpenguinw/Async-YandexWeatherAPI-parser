@@ -139,4 +139,4 @@ dmypy.json
 
 .mypy_cache
 
-.json
+data.json
