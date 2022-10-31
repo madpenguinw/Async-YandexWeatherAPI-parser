@@ -1,0 +1,372 @@
+[
+    {
+        "city": "MOSCOW",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 17.73,
+                "not_rainy_hours": 7
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 13.09,
+                "not_rainy_hours": 0
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 12.18,
+                "not_rainy_hours": 0
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 12.0,
+                "not_rainy_hours": 1
+            }
+        ],
+        "average_temp": 13.5,
+        "average_not_rainy_hours": 2.0
+    },
+    {
+        "city": "PARIS",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 17.64,
+                "not_rainy_hours": 9
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 17.36,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 17.0,
+                "not_rainy_hours": 11
+            }
+        ],
+        "average_temp": 17.0,
+        "average_not_rainy_hours": 10.33
+    },
+    {
+        "city": "LONDON",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 17.36,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 16.27,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 14.64,
+                "not_rainy_hours": 11
+            }
+        ],
+        "average_temp": 15.67,
+        "average_not_rainy_hours": 11.0
+    },
+    {
+        "city": "BERLIN",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 19.27,
+                "not_rainy_hours": 9
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 16.0,
+                "not_rainy_hours": 6
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 13.64,
+                "not_rainy_hours": 0
+            }
+        ],
+        "average_temp": 16.0,
+        "average_not_rainy_hours": 5.0
+    },
+    {
+        "city": "BEIJING",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 31.82,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 32.73,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 33.82,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 28.17,
+                "not_rainy_hours": 6
+            }
+        ],
+        "average_temp": 31.0,
+        "average_not_rainy_hours": 9.75
+    },
+    {
+        "city": "KAZAN",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 12.55,
+                "not_rainy_hours": 6
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 13.73,
+                "not_rainy_hours": 0
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 14.73,
+                "not_rainy_hours": 3
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 14.0,
+                "not_rainy_hours": 1
+            }
+        ],
+        "average_temp": 13.25,
+        "average_not_rainy_hours": 2.5
+    },
+    {
+        "city": "SPETERSBURG",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 12.18,
+                "not_rainy_hours": 3
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 11.82,
+                "not_rainy_hours": 0
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 11.64,
+                "not_rainy_hours": 0
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 12.0,
+                "not_rainy_hours": 1
+            }
+        ],
+        "average_temp": 11.5,
+        "average_not_rainy_hours": 1.0
+    },
+    {
+        "city": "VOLGOGRAD",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 22.09,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 21.91,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 25.64,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 25.0,
+                "not_rainy_hours": 1
+            }
+        ],
+        "average_temp": 23.25,
+        "average_not_rainy_hours": 8.5
+    },
+    {
+        "city": "NOVOSIBIRSK",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 24.91,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 22.45,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 23.27,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 22.2,
+                "not_rainy_hours": 5
+            }
+        ],
+        "average_temp": 22.75,
+        "average_not_rainy_hours": 9.5
+    },
+    {
+        "city": "KALININGRAD",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 15.36,
+                "not_rainy_hours": 9
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 12.82,
+                "not_rainy_hours": 2
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 11.64,
+                "not_rainy_hours": 1
+            }
+        ],
+        "average_temp": 12.67,
+        "average_not_rainy_hours": 4.0
+    },
+    {
+        "city": "ABUDHABI",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 34.82,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 34.45,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 33.82,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 34.0,
+                "not_rainy_hours": 2
+            }
+        ],
+        "average_temp": 33.75,
+        "average_not_rainy_hours": 8.75
+    },
+    {
+        "city": "WARSZAWA",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 19.64,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 14.0,
+                "not_rainy_hours": 3
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 12.82,
+                "not_rainy_hours": 0
+            }
+        ],
+        "average_temp": 15.0,
+        "average_not_rainy_hours": 4.67
+    },
+    {
+        "city": "BUCHAREST",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 27.45,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 26.09,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 27.82,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-29",
+                "average_temp": 18.0,
+                "not_rainy_hours": 1
+            }
+        ],
+        "average_temp": 24.5,
+        "average_not_rainy_hours": 8.5
+    },
+    {
+        "city": "ROMA",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 29.0,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 29.27,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 25.55,
+                "not_rainy_hours": 11
+            }
+        ],
+        "average_temp": 27.67,
+        "average_not_rainy_hours": 11.0
+    },
+    {
+        "city": "CAIRO",
+        "date_data": [
+            {
+                "date": "2022-05-26",
+                "average_temp": 32.55,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-27",
+                "average_temp": 33.18,
+                "not_rainy_hours": 11
+            },
+            {
+                "date": "2022-05-28",
+                "average_temp": 34.45,
+                "not_rainy_hours": 11
+            }
+        ],
+        "average_temp": 33.0,
+        "average_not_rainy_hours": 11.0
+    }
+]
