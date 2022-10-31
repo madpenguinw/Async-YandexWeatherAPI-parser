@@ -44,11 +44,12 @@ class DataCalculationTask(Process):
         super().__init__()
         self.queue = queue
 
-    def get_average_value(values: list) -> int:
+    def get_average_value(self, values: list) -> int:
         'Получение среднего значения элемента списка.'
         try:
             true_list = []
             for value in values:
+                # Необходимо, чтобы 0 обрабатывался, как число, а не как False
                 if value or str(value) == '0':
                     true_list.append(int(value))
             length = len(true_list)
@@ -57,12 +58,12 @@ class DataCalculationTask(Process):
         except ZeroDivisionError as error:
             logger.debug(error)
             return False
-        except Exception as error:
+        except TypeError as error:
             logger.error(error)
             return False
         return round(average, 2)
 
-    def get_data_for_10_hours(city: str) -> dict:
+    def get_data_for_10_hours(self, city: str) -> dict:
         """
         Парсинг данных о погоде с 9 до 19 часов.
         """
@@ -71,6 +72,11 @@ class DataCalculationTask(Process):
         average_temp: list = list()
         average_not_rainy_hours: list = list()
         city_data: dict = dict()
+        #  Здравствуйте, Роман. Спасибо за совет использовать библиотеку pydantic.
+        #  В данном проекте мне бы хотелось обойтись без нее, так придумывание 
+        #  рейтинговой системы и сортировка словарей вызвала у меня небольшой челлендж.
+        #  Мне бы хотелос сохранить эту реализацию.
+        #  В будущих проектах попробую использовать pydantic.
         city_data['date_data']: list = list()
         city_data['city'] = city
         city_data = {
@@ -94,7 +100,7 @@ class DataCalculationTask(Process):
                     checking = True
                     if condition in GOOD_CONDITIONS:
                         condition_counter += 1
-            average_day_temp = DataCalculationTask.get_average_value(
+            average_day_temp = self.get_average_value(
                 temperature_list)
             average_temp.append(average_day_temp)
             if checking:
@@ -106,9 +112,9 @@ class DataCalculationTask(Process):
                     'not_rainy_hours': condition_counter
                 }
                 city_data['date_data'].append(day_data)
-        average_temp: float = DataCalculationTask.get_average_value(
+        average_temp: float = self.get_average_value(
             average_temp)
-        average_not_rainy_hours: float = DataCalculationTask.get_average_value(
+        average_not_rainy_hours: float = self.get_average_value(
             average_not_rainy_hours)
         city_data['average_temp'] = average_temp
         city_data['average_not_rainy_hours'] = average_not_rainy_hours
@@ -117,7 +123,7 @@ class DataCalculationTask(Process):
     def run(self):
         with ThreadPoolExecutor() as pool:
             future = pool.map(
-                DataCalculationTask.get_data_for_10_hours, CITIES.keys()
+                self.get_data_for_10_hours, CITIES.keys()
             )
             for city_data in future:
                 self.queue.put(city_data)
@@ -131,7 +137,9 @@ class DataAggregationTask(Process):
         super().__init__()
         self.queue = queue
 
-    def get_rating(data: list, value: str, reverse: bool = False) -> list:
+    def get_rating(
+        self, data: list, value: str, reverse: bool = False
+    ) -> list:
         'Увеличение значения рейтинга на основании положения словаря в списке.'
         try:
             data.sort(
@@ -146,11 +154,11 @@ class DataAggregationTask(Process):
                     else:
                         sorted_dictionary['rating'] = i
                         i += 1
-        except Exception as error:
+        except KeyError as error:
             logger.error(error)
         return data
 
-    def get_recommendation(data: list) -> str:
+    def get_recommendation(self, data: list) -> str:
         'Сортировка списка словарей по ключу.'
         try:
             city_1 = data[0]['city']
@@ -163,31 +171,32 @@ class DataAggregationTask(Process):
                 msg = f'Наиболее благоприятный город для поездки - {city_1}'
             print(msg)
             pass
-        except Exception as error:
+        except LookupError as error:
             logger.error(error)
             pass
 
     def run(self):
         data: list = list()
+        data_analyzing = DataAnalyzingTask()
         while True:
             if self.queue.empty():
-                data = DataAggregationTask.get_rating(
+                data = self.get_rating(
                     data,
                     'average_temp',
                     reverse=True
                 )
-                data = DataAggregationTask.get_rating(
+                data = self.get_rating(
                     data,
                     'average_not_rainy_hours',
                     reverse=True
                 )
-                data = DataAggregationTask.get_rating(
+                data = self.get_rating(
                     data,
                     'rating'
                 )
                 logger.info('Data aggregation is completed')
-                DataAnalyzingTask.result(data)
-                DataAggregationTask.get_recommendation(data)
+                data_analyzing.result(data)
+                self.get_recommendation(data)
                 return data
             item = self.queue.get()
             data.append(item)
@@ -197,7 +206,7 @@ class DataAnalyzingTask:
     """
     Финальный анализ и получение результата.
     """
-    def create_json(data: list):
+    def create_json(self, data: list):
         'Создание из списка словарей объекта json.'
         dict_data = {
             'forecasting': data
@@ -205,14 +214,15 @@ class DataAnalyzingTask:
         json_data = json.dumps(dict_data, indent=4, ensure_ascii=False,)
         return json_data
 
-    def save_json(json_data):
+    def save_json(self, json_data):
         'Cохранение объекта json в файл data.json.'
         with open('data.json', 'w', encoding='utf-8') as outfile:
             outfile.write(json_data)
             outfile.write('\n')
         logger.info('Result saved in file "data.json"')
 
-    def result(data):
+    def result(self, data):
         'Конечный результат.'
-        json_data = DataAnalyzingTask.create_json(data)
-        DataAnalyzingTask.save_json(json_data)
+        data_analyzing = DataAnalyzingTask()
+        json_data = data_analyzing.create_json(data)
+        data_analyzing.save_json(json_data)
