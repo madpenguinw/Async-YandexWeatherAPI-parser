@@ -72,11 +72,6 @@ class DataCalculationTask(Process):
         average_temp: list = list()
         average_not_rainy_hours: list = list()
         city_data: dict = dict()
-        #  Здравствуйте, Роман. Спасибо за совет использовать библиотеку pydantic.
-        #  В данном проекте мне бы хотелось обойтись без нее, так придумывание 
-        #  рейтинговой системы и сортировка словарей вызвала у меня небольшой челлендж.
-        #  Мне бы хотелос сохранить эту реализацию.
-        #  В будущих проектах попробую использовать pydantic.
         city_data['date_data']: list = list()
         city_data['city'] = city
         city_data = {
